@@ -1,11 +1,6 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import cookieParser from 'cookie-parser';
-import cookieSession from 'cookie-session';
-import express from 'express';
 import path from 'path';
-import favicon from 'serve-favicon';
-import logger from 'morgan';
 import session from 'koa-session';
 import passport from 'koa-passport';
 import serve from 'koa-static';
@@ -48,10 +43,10 @@ import auth from './routes/auth.js';
 router.use('/auth', auth.routes());
 
 import dashboardRoutes from './react/dashboard/routes.jsx';
-router.get('/dashboard/:subDomain?', routerRenderer(dashboardRoutes));
+router.get('/dashboard/:subDomain?', checkLogin(), routerRenderer(dashboardRoutes));
 
 import accountRoutes from './react/account/routes.jsx';
-router.get('/account/:subDomain?', routerRenderer(accountRoutes));
+router.get('/account/:subDomain?', checkLogin(), routerRenderer(accountRoutes));
 
 app.use(router.routes());
 
